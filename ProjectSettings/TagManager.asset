@@ -41,3 +41,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: FrontBlack
+    uniqueID: 3963307483
+    locked: 0
