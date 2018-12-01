@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SacrificeManager : MonoBehaviour {
+public class SacrificeManager : MonoBehaviour
+{
 
 	//private Transform player;
 
@@ -22,12 +23,14 @@ public class SacrificeManager : MonoBehaviour {
 	}
 
 	// Use this for initialization
-	void Start () {
+	void Start()
+	{
 		//TODO get player
 	}
-	
+
 	// Update is called once per frame
-	void Update () {
+	void Update()
+	{
 
 		for (int i = 0; i < 10; ++i)
 		{
@@ -38,10 +41,10 @@ public class SacrificeManager : MonoBehaviour {
 			}
 		}
 
-		
+
 	}
 
-	void Sacrifice (e_sacrifice _sacrificeType)
+	void Sacrifice(e_sacrifice _sacrificeType)
 	{
 		//e_sacrifice sacr = (e_sacrifice)Random.Range(0, (int)e_sacrifice.COUNT);
 
@@ -52,14 +55,22 @@ public class SacrificeManager : MonoBehaviour {
 
 				break;
 			case e_sacrifice.REDUCE_VISION:
-				GameObject player = GameObject.FindGameObjectWithTag("Player");
-				break;
+				{
+					GameObject player = GameObject.FindGameObjectWithTag("Player");
+					Transform visionMaskField = player.transform.Find("VisionFieldMask");
+					visionMaskField.localScale -= new Vector3(1, 1, 0);
+					Debug.Log("Reduce Vision");
+					break;
+				}
 			case e_sacrifice.HALF_VISION:
-				GameObject player = GameObject.FindGameObjectWithTag("Player");
-				var halfVisionObject = Instantiate(halfVisionHidingObj, player.transform.position, player.transform.rotation);
-				halfVisionObject.transform.parent = player.transform;
-				Debug.Log("HalF Vision");
-				break;
+				{
+
+					GameObject player = GameObject.FindGameObjectWithTag("Player");
+					var halfVisionObject = Instantiate(halfVisionHidingObj, player.transform.position, player.transform.rotation);
+					halfVisionObject.transform.parent = player.transform;
+					Debug.Log("HalF Vision");
+					break;
+				}
 			case e_sacrifice.SLIPPERY:
 				break;
 			case e_sacrifice.COUNT:
