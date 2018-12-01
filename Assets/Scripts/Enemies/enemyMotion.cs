@@ -24,4 +24,11 @@ public class enemyMotion : MonoBehaviour {
 			transform.Translate (diffPosition.normalized * speed * Time.deltaTime);
 		}
 	}
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        //if (collision.gameObject.tag == "Bullet")
+        //{
+            Destroy(gameObject);
+        //}
+    }
 }
