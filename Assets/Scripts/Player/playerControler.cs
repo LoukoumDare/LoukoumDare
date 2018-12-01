@@ -6,7 +6,7 @@ public class playerControler : MonoBehaviour
 
     public float speed = 6.0f;
 
-    private Vector2 moveDirection = Vector2.zero;
+    private Vector3 moveDirection = Vector2.zero;
     private CharacterController controller;
 
     void Start()
@@ -19,13 +19,15 @@ public class playerControler : MonoBehaviour
 
     void Update()
     {
-        moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        moveDirection = transform.TransformDirection(moveDirection);
-        moveDirection = moveDirection * speed;
-        controller.Move(moveDirection * Time.deltaTime);
-        Vector3 mouseworldpose = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        float AngleRad = Mathf.Atan2(mouseworldpose.y - transform.position.y, mouseworldpose.x - transform.position.x);
-        float AngleDeg = (180 / Mathf.PI) * AngleRad;
+		moveDirection = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), transform.position.z);
+		moveDirection = moveDirection * speed * Time.deltaTime;
+		//moveDirection = transform.TransformDirection(moveDirection);
+		controller.Move(moveDirection);
+
+
+		Vector3 mouseworldpose = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        float AngleRad = Mathf.Atan2(mouseworldpose.x - transform.position.x, mouseworldpose.y - transform.position.y);
+        float AngleDeg = -(180 / Mathf.PI) * AngleRad;
         this.transform.rotation = Quaternion.Euler(0, 0, AngleDeg);
     }
 }

@@ -41,6 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: FrontBlack
-    uniqueID: 3963307483
+  - name: Walls
+    uniqueID: 2953341687
+    locked: 0
+  - name: Items
+    uniqueID: 181391029
+    locked: 0
+  - name: Unities
+    uniqueID: 3197982357
     locked: 0
