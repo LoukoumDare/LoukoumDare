@@ -9,7 +9,7 @@ public class enemyMotion : MonoBehaviour {
 	private float y;
 	// Use this for initialization
 	void Start () {
-		aimedPosition = new Vector3(Random.Range (1, 10), Random.Range (0, 10));
+		aimedPosition = new Vector3(Random.Range (-3, 3), Random.Range (-3, 3));
 	}
 	
 	// Update is called once per frame

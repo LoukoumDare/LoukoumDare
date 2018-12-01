@@ -141,8 +141,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd3598d9bc1e242c0932c753abb60268, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ennemy: {fileID: 0}
-  pop_delay: 5
+  ennemy: {fileID: 4691243816007870, guid: b4721a2323eb14f0baf888d52340b463, type: 2}
+  sharpy: {fileID: 4053657597346664, guid: ad7137842f5b54d40bbe5c6b1217548e, type: 2}
+  popDelay: 2
 --- !u!212 &1041494054
 SpriteRenderer:
   m_ObjectHideFlags: 0

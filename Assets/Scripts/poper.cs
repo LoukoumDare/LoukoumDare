@@ -5,6 +5,7 @@ using UnityEngine;
 public class poper : MonoBehaviour {
 
 	public Transform ennemy;
+	public Transform sharpy;
 
 	public float popDelay = 5;
 	private float timeSinceLastPop = 0;
@@ -18,7 +19,7 @@ public class poper : MonoBehaviour {
 		this.timeSinceLastPop += Time.deltaTime;
 		if (this.timeSinceLastPop > popDelay) {
 			this.timeSinceLastPop = 0;
-			Instantiate(ennemy, new Vector3(Random.Range(-5f, 5f), Random.Range(-5f, 5f), 0), Quaternion.identity);
+			Instantiate(sharpy, new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f), 0), Quaternion.identity);
 		}
 	}
 }
