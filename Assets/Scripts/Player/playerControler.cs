@@ -14,12 +14,12 @@ public class playerControler : MonoBehaviour
         controller = GetComponent<CharacterController>();
 
         // let the gameObject fall down
-        //gameObject.transform.position = new Vector2(0, 0);
+        gameObject.transform.position = new Vector2(0, 0);
     }
 
     void Update()
     {
-		moveDirection = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
+		moveDirection = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), transform.position.z);
 		moveDirection = moveDirection * speed * Time.deltaTime;
 		//moveDirection = transform.TransformDirection(moveDirection);
 		controller.Move(moveDirection);
