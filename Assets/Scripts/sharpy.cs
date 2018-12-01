@@ -6,6 +6,7 @@ public class sharpy : MonoBehaviour {
 
 	public Vector3 aimedPosition;
 	public float speed = 1f;
+	public float sideSpeed = 3f;
 	private float SPEED_BOOST = 3f;
 	private float SPEED_STANDARD = 1f;
 	private float x;
@@ -21,10 +22,11 @@ public class sharpy : MonoBehaviour {
 	public float STANDARD_TIME_DURATION = 2f;
 	public float timeToNextJerk = 2f;
 	public float JERK_DELAY = 0.5f;
-	public float MAX_JERK_RANGE = 0.01f;
+	public float MAX_JERK_RANGE = 5f;
 
 	void Start () {
 		// aimedPosition = new Vector3(Random.Range (1, 10), Random.Range (0, 10));
+		this.currentJerk = Random.Range (0f, MAX_JERK_RANGE);
 	}
 
 	void checkState () {
@@ -35,12 +37,14 @@ public class sharpy : MonoBehaviour {
 				this.timeSinceLastChangeState =  0;	
 				this.state = STANDARD;
 				this.speed = SPEED_STANDARD;
+				this.sideSpeed = SPEED_STANDARD;
 			}
 		} else if (state == STANDARD) {
 			if (this.timeSinceLastChangeState > this.STANDARD_TIME_DURATION) {
 				this.timeSinceLastChangeState =  0;	
 				this.state = BOOST;
 				this.speed = SPEED_BOOST;
+				this.sideSpeed = SPEED_BOOST;
 			}
 		}
 
@@ -54,8 +58,8 @@ public class sharpy : MonoBehaviour {
 	}
 
 	void Update () {
-		float AngleRad = Mathf.Atan2(aimedPosition.y - transform.position.y, aimedPosition.x - transform.position.x);
-		float AngleDeg = (180 / Mathf.PI) * AngleRad;
+		float AngleRad = Mathf.Atan2(aimedPosition.x - transform.position.x, aimedPosition.y - transform.position.y);
+		float AngleDeg = (180 / Mathf.PI) * AngleRad * -1;
 		this.transform.rotation = Quaternion.Euler(0, 0, AngleDeg); 
 
 		Vector3 diffPosition = aimedPosition - transform.position;
@@ -64,13 +68,13 @@ public class sharpy : MonoBehaviour {
 		this.checkIncrementJerk();
 
 		// compute shift right/left
-		// Vector3 vectorShift = transform.right.normalized * 0.01f;
+		Vector3 vectorShift = transform.right * (Mathf.Sin(currentJerk) - 0.5f) * sideSpeed * Time.deltaTime;
 
 		if (diffPosition.magnitude < speed * Time.deltaTime) {
 			transform.position = aimedPosition;
 
 		} else {
-			transform.Translate (vectorMotion);
+			transform.Translate (vectorMotion + vectorShift, Space.World);
 		}
 	}
 }
