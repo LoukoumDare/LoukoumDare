@@ -72,6 +72,8 @@ public class sharpy : MonoBehaviour {
 
 		if (diffPosition.magnitude < speed * Time.deltaTime) {
 			transform.position = aimedPosition;
+			this.speed = 0;
+			this.sideSpeed = 0;
 
 		} else {
 			transform.Translate (vectorMotion + vectorShift, Space.World);
