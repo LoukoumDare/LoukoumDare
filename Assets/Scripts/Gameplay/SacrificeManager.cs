@@ -28,27 +28,31 @@ public class SacrificeManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown(KeyCode.Space))
-		{
-			Debug.Log("HalF Vision");
 
-			Sacrifice();
+		for (int i = 0; i < 10; ++i)
+		{
+			if (Input.GetKeyDown("" + i))
+			{
+				Debug.Log((e_sacrifice)i);
+				Sacrifice((e_sacrifice)i);
+			}
 		}
 
 		
 	}
 
-	void Sacrifice ()
+	void Sacrifice (e_sacrifice _sacrificeType)
 	{
 		//e_sacrifice sacr = (e_sacrifice)Random.Range(0, (int)e_sacrifice.COUNT);
 
-		e_sacrifice sacr = e_sacrifice.HALF_VISION;
-		switch (sacr)
+		//_sacrificeType = e_sacrifice.HALF_VISION;
+		switch (_sacrificeType)
 		{
 			case e_sacrifice.HIDE_HUD:
 
 				break;
 			case e_sacrifice.REDUCE_VISION:
+				GameObject player = GameObject.FindGameObjectWithTag("Player");
 				break;
 			case e_sacrifice.HALF_VISION:
 				GameObject player = GameObject.FindGameObjectWithTag("Player");

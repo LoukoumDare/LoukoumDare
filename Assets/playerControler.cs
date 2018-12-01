@@ -6,7 +6,7 @@ public class playerControler : MonoBehaviour
 
     public float speed = 6.0f;
 
-    private Vector2 moveDirection = Vector2.zero;
+    private Vector3 moveDirection = Vector3.zero;
     private CharacterController controller;
 
     void Start()
@@ -19,26 +19,14 @@ public class playerControler : MonoBehaviour
 
     void Update()
     {
-        moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        moveDirection = transform.TransformDirection(moveDirection);
-        moveDirection = moveDirection * speed;
-        //rotateDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Horizontal"));
-        //transform.rotation = Quaternion.LookRotation(rotateDirection);
-        //rotateDirection = transform.Rotate(rotateDirection);
-        //rotateDirection = rotateDirection * speed;
+        moveDirection = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), transform.position.z);
+        moveDirection = moveDirection * speed * Time.deltaTime;
+		//moveDirection = transform.TransformDirection(moveDirection);
 
-        if (Input.GetButton("Jump"))
-        {
-            //transform.Rotate(moveDirection, Time.deltaTime);
-        }
-        if (Input.GetButton("Fire1"))
-        {
-            //controller.Move(*Time.deltaTime);
-        }
-        controller.Move(moveDirection * Time.deltaTime);
+        controller.Move(moveDirection);
         Vector3 mouseworldpose = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        float AngleRad = Mathf.Atan2(mouseworldpose.y - transform.position.y, mouseworldpose.x - transform.position.x);
-        float AngleDeg = (180 / Mathf.PI) * AngleRad;
+        float AngleRad = Mathf.Atan2(mouseworldpose.x - transform.position.x, mouseworldpose.y - transform.position.y);
+        float AngleDeg = -(180 / Mathf.PI) * AngleRad;
         this.transform.rotation = Quaternion.Euler(0, 0, AngleDeg);
     }
 }
