@@ -82,7 +82,7 @@ public class BoardManager : MonoBehaviour
         {
             Vector3 randomPosition = RandomPosition();
             GameObject tileChoice = tileArray[Random.Range(0, tileArray.Length)];
-            Instantiate(tileChoice, randomPosition, Quaternion.identity);
+            //Instantiate(tileChoice, randomPosition, Quaternion.identity);
         }
     }
 
@@ -94,7 +94,7 @@ public class BoardManager : MonoBehaviour
         //LayoutObjectAtRandom(itemTiles, itemCount.minimum, itemCount.maximum);
         //int enemyCount 
         //LayoutObjectAtRandom(enemyTiles, enemyCount.minimum, enemyCount.maximum);
-        Instantiate(sacrificePit, new Vector3(columns = 13, rows = 13, 0f), Quaternion.identity);
+        Instantiate(sacrificePit, new Vector3(columns = 12, rows = 12, 0f), Quaternion.identity);
     }
 
 
