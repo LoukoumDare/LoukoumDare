@@ -5,6 +5,10 @@
 [Bb]uilds/
 Assets/AssetStoreTools*
 
+#Galimor
+Assets/Test/*
+.gitignore
+
 # Visual Studio cache directory
 .vs/
 
@@ -26,7 +30,6 @@ ExportedObj/
 *.VC.db
 
 # Unity3D generated meta files
-*.meta
 *.pidb.meta
 *.pdb.meta
 
