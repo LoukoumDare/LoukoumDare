@@ -11,6 +11,11 @@ public class poper : MonoBehaviour {
 
 	public float popDelay = 5;
 	private float timeSinceLastPop = 0;
+
+	public int archeryInstanceNumber = 0;
+	public int ennemyInstanceNumber = 0;
+	public int sharpyInstanceNumber = 0;
+	public int blockerInstanceNumber = 0;
 	// Use this for initialization
 	void Start () {
 			
