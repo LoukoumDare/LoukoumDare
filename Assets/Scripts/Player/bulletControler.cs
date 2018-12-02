@@ -13,7 +13,7 @@ public class bulletControler : MonoBehaviour {
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Ennemy")
+        if (collision.gameObject.tag == "Enemy")
         {
             Destroy(gameObject);
         }

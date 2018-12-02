@@ -5,6 +5,11 @@ using UnityEngine;
 public class CatController : MonoBehaviour {
     public bool follow = false;
     public float speed = 1;
+    public int health;
+    void Start()
+    {
+        this.health = 3;
+    }
     void Update()
     { 
         if (this.follow == true)
@@ -18,9 +23,14 @@ public class CatController : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D collision)
     {
         this.follow |= collision.gameObject.tag == "Player";
-        if (collision.gameObject.tag == "Ennemy")
+        if (collision.gameObject.tag == "Enemy")
         {
-            Destroy(gameObject);
+            this.health = this.health - 1;
+            if (this.health == 0)
+            {
+                Destroy(gameObject);
+            }
+
         }
     }
 }
