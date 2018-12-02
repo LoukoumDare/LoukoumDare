@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -38,16 +39,16 @@ public class PlayerHealth : MonoBehaviour
             // ... set the colour of the damageImage to the flash colour.
             damageImage.color = flashColour;
         }
-        // Otherwise...
-        //else
-        //{
-        //    // ... transition the colour back to clear.
-        //    damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
-        //}
+		// Otherwise...
+		//else
+		//{
+		//	// ... transition the colour back to clear.
+		//	damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
+		//}
 
-        // Reset the damaged flag.
+		// Reset the damaged flag.
 
-    }
+	}
 
 
     public void TakeDamage(int amount)
@@ -58,14 +59,14 @@ public class PlayerHealth : MonoBehaviour
         // Reduce the current health by the damage amount.
         currentHealth -= amount;
 
-        // Set the health bar's value to the current health.
-        //healthSlider.value = currentHealth;
+		// Set the health bar's value to the current health.
+		healthSlider.value = currentHealth;
 
-        // Play the hurt sound effect.
-        // playerAudio.Play();
+		// Play the hurt sound effect.
+		// playerAudio.Play();
 
-        // If the player has lost all it's health and the death flag hasn't been set yet...
-        if (currentHealth <= 0 && !isDead)
+		// If the player has lost all it's health and the death flag hasn't been set yet...
+		if (currentHealth <= 0 && !isDead)
         {
             // ... it should die.
             Death();
@@ -83,22 +84,24 @@ public class PlayerHealth : MonoBehaviour
 
 	void Death()
     {
-        // Set the death flag so this function won't be called again.
-        isDead = true;
-        deathText.color = new Color(1f, 0f, 0f, 1f);
+		SceneManager.LoadScene("GameOver", LoadSceneMode.Single);
 
-        // Turn off any remaining shooting effects.
-        // playerShooting.DisableEffects();
+		// Set the death flag so this function won't be called again.
+		//isDead = true;
+		//deathText.color = new Color(1f, 0f, 0f, 1f);
 
-        // Tell the animator that the player is dead.
-        // anim.SetTrigger("Die");
+		// Turn off any remaining shooting effects.
+		// playerShooting.DisableEffects();
 
-        // Set the audiosource to play the death clip and play it (this will stop the hurt sound from playing).
-        //playerAudio.clip = deathClip;
-        //playerAudio.Play();
+		// Tell the animator that the player is dead.
+		// anim.SetTrigger("Die");
 
-        // Turn off the movement and shooting scripts.
-        // playerMovement.enabled = false;
-        // playerShooting.enabled = false;
-    }
+		// Set the audiosource to play the death clip and play it (this will stop the hurt sound from playing).
+		//playerAudio.clip = deathClip;
+		//playerAudio.Play();
+
+		// Turn off the movement and shooting scripts.
+		// playerMovement.enabled = false;
+		// playerShooting.enabled = false;
+	}
 }

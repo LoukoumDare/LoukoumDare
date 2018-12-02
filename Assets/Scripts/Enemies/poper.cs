@@ -14,14 +14,15 @@ public class poper : MonoBehaviour
 	public float popDelay = 15;
 	private float timeSinceLastPop = 0;
 
-	public bool needSpawnCat = false;
-	public int probaEnemy = 5;
+	public static bool needSpawnCat = false;
+	public bool isCatspawner;
+	
 	public int probaSharpy = 5;
 	public int probaBlocker = 5;
 	public int probaArchery = 5;
+	public static int nbmobsMax = 30;
 
 	public int archeryInstanceNumber = 0;
-	public int ennemyInstanceNumber = 0;
 	public int sharpyInstanceNumber = 0;
 	public int blockerInstanceNumber = 0;
 	// Use this for initialization
@@ -39,24 +40,19 @@ public class poper : MonoBehaviour
 			this.timeSinceLastPop = 0;
 			Transform go;
 
-			var r = Random.Range(0, probaEnemy + probaSharpy + probaBlocker + probaArchery);
+			var r = Random.Range(0, probaSharpy + probaBlocker + probaArchery);
 
-			if (needSpawnCat)
+			if (needSpawnCat && isCatspawner)
 			{
 				go = cat;
 			}
 			else
 			{
-				if (r < probaEnemy)
+				if (r < probaSharpy)
 				{
 					go = sharpy;
 				}
-				else if (r < probaEnemy + probaSharpy)
-				{
-					go = ennemy;
-
-				}
-				else if (r < probaEnemy + probaSharpy)
+				else if (r < probaSharpy + probaBlocker)
 				{
 					go = blockerEnemy;
 				}
@@ -66,9 +62,10 @@ public class poper : MonoBehaviour
 				}
 			}
 
+			nbmobsMax--;
 
 
-			Instantiate(sharpy,transform.position, Quaternion.identity);
+			Instantiate(go, transform.position, Quaternion.identity);
 
 			//Instantiate(ennemy, new Vector3(Random.Range(-6f, 6f), Random.Range(-6f, 6f), 0), Quaternion.identity);
 			//Instantiate(blockerEnemy, new Vector3(Random.Range(-6f, 6f), Random.Range(-6f, 6f), 0), Quaternion.identity);
