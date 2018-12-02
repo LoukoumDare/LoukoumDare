@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1993623034843654}
+  m_IsPrefabAsset: 1
+--- !u!1 &1993623034843654
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4227649411181752}
+  - component: {fileID: 114018207550350060}
+  - component: {fileID: 114447925923875170}
+  m_Layer: 8
+  m_Name: FloorGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4227649411181752
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1993623034843654}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114018207550350060
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1993623034843654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ea2e7e66959ff041a027124d18d52fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  columns: 40
+  rows: 40
+  floorTileLenght: 4
+  wallTileLenght: 5
+  angleWallTileLenght: 4
+  sacrificePit: {fileID: 1261554225092236, guid: d5b2dad41d4ea4144b9c29fc7caf05ee,
+    type: 2}
+  floorTiles:
+  - {fileID: 1251413475252220, guid: 40e69ab3e21a912418e0f51473dd6299, type: 2}
+  - {fileID: 1852037571497690, guid: 699b05e6528530b41b1267a5c4ee0722, type: 2}
+  - {fileID: 1525148434763034, guid: 7d050556f2b581043a99b4f498409e6e, type: 2}
+  - {fileID: 1210203914384218, guid: 09709763728600b43b82fee89abaf677, type: 2}
+  - {fileID: 1756561928216984, guid: f8e7f082039a09a438cb95c6e617908e, type: 2}
+  - {fileID: 1852037571497690, guid: 699b05e6528530b41b1267a5c4ee0722, type: 2}
+  - {fileID: 1852037571497690, guid: 699b05e6528530b41b1267a5c4ee0722, type: 2}
+  - {fileID: 1852037571497690, guid: 699b05e6528530b41b1267a5c4ee0722, type: 2}
+  - {fileID: 1210203914384218, guid: 09709763728600b43b82fee89abaf677, type: 2}
+  wallTiles:
+  - {fileID: 1741576383502702, guid: 813f395c34d251842bd3f86183e37468, type: 2}
+  angleWallTiles:
+  - {fileID: 1967779571526398, guid: 78666e8f03fca7a46a4a5ad6310fa087, type: 2}
+--- !u!114 &114447925923875170
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1993623034843654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61cd3dc88202b0745a6ff5525475589f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boardScript: {fileID: 0}
