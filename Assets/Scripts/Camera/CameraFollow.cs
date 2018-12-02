@@ -18,9 +18,6 @@ public class CameraFollow : MonoBehaviour {
 
 		minPos = -_boxCollider.bounds.extents + new Vector3(_camera.orthographicSize * _camera.aspect, _camera.orthographicSize, 0);
 		maxPos = _boxCollider.bounds.extents - new Vector3(_camera.orthographicSize * _camera.aspect, _camera.orthographicSize, 0);
-
-		Debug.Log(minPos);
-		Debug.Log(_camera.orthographicSize);
 	}
 	
 	// Update is called once per frame
