@@ -7,6 +7,10 @@ public class enemyMotion : MonoBehaviour {
 	public float speed = 1f;
 	private float x;
 	private float y;
+	public float damage = 10;
+	enemyHealth _enemyHealth;
+	PlayerHealth playerHealth;
+
 	// Use this for initialization
 	void Start () {
 		aimedPosition = new Vector3(Random.Range (-3, 3), Random.Range (-3, 3));
@@ -14,6 +18,7 @@ public class enemyMotion : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		aimedPosition = GameObject.Find("player").transform.position;
 		Vector3 diffPosition = aimedPosition - transform.position;
 
 		if (diffPosition.magnitude < speed * Time.deltaTime) {
@@ -28,7 +33,16 @@ public class enemyMotion : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Bullet")
         {
-            Destroy(gameObject);
+			// Destroy(collision.gameObject.GetComponent<bulletControler>() );
+			_enemyHealth = GetComponent <enemyHealth> ();
+			_enemyHealth.TakeDamage ((int)(collision.gameObject.GetComponent<bulletControler> ().damage), new Vector3(0, 0, 0));
+			Debug.Log (collision.gameObject.GetComponent<bulletControler> ().damage);
         }
+		if (collision.gameObject.tag == "Body")
+		{
+			// Destroy(gameObject);
+			playerHealth = collision.gameObject.GetComponentInParent<PlayerHealth>();
+			playerHealth.TakeDamage ((int)(this.damage));
+		}
     }
 }

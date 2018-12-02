@@ -23,9 +23,10 @@ GameObject:
   - component: {fileID: 114316464026381652}
   - component: {fileID: 61091620565241506}
   - component: {fileID: 50789964309972482}
+  - component: {fileID: 114380539704064978}
   m_Layer: 0
   m_Name: sharpyEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110,6 +111,23 @@ MonoBehaviour:
   timeToNextJerk: 2
   JERK_DELAY: 0.5
   MAX_JERK_RANGE: 5
+  damage: 20
+--- !u!114 &114380539704064978
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1691993664891670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b6ee5ea48a30470d989d22576a7a3b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHealth: 150
+  currentHealth: 0
+  sinkSpeed: 2.5
+  scoreValue: 10
+  deathClip: {fileID: 0}
 --- !u!212 &212351665110057652
 SpriteRenderer:
   m_ObjectHideFlags: 1
