@@ -5,7 +5,7 @@ using UnityEngine;
 public class arrowController : MonoBehaviour {
     private Vector3 moveDirection = Vector3.zero;
     public float damage = 100f;
-
+    public int damageOnPlayerHit = 10;
     void Update()
     {
         moveDirection = new Vector3(1, 0, 0) * Time.deltaTime * 5;
@@ -16,6 +16,8 @@ public class arrowController : MonoBehaviour {
         if (collision.gameObject.tag == "Player")
         {
             Destroy(gameObject);
+            PlayerHealth playerHealth = collision.gameObject.GetComponentInParent<PlayerHealth>();
+            playerHealth.TakeDamage((int)damageOnPlayerHit);
         }
     }
 }
