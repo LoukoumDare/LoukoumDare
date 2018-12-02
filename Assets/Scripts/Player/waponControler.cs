@@ -32,7 +32,7 @@ public class waponControler : MonoBehaviour {
                     Vector3 mouseworldpose = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     float AngleRad = Mathf.Atan2(mouseworldpose.y - transform.position.y, mouseworldpose.x - transform.position.x);
                     float AngleDeg = (180 / Mathf.PI) * AngleRad;
-                    GameObject instance = Object.Instantiate(Resources.Load("bullet", typeof(GameObject)), new Vector3(transform.position.x, transform.position.y, 0), Quaternion.Euler(0, 0, AngleDeg)) as GameObject;
+                    GameObject instance = Object.Instantiate(Resources.Load("bullet", typeof(GameObject)), new Vector3(transform.position.x, transform.position.y, -2), Quaternion.Euler(0, 0, AngleDeg)) as GameObject;
                     instance.GetComponent<bulletControler>().damage = wapon.damage;
                     Destroy(instance, wapon.range);
                     timeSinceLastShoot = 0;
@@ -53,8 +53,6 @@ public class waponControler : MonoBehaviour {
 }
 public abstract class Awapon
 {
-
-    protected waponControler _controller;
     public float delay = 0;
     public float damage = 0;
     public float range = 0;
@@ -72,9 +70,9 @@ public class Gun : Awapon
 {
     public Gun()
     {
-        delay = 1;
-        damage = 10;
-        range = 1;
+        delay = 1f;
+        damage = 1000f;
+        range = 5f;
         type = "LONG";
     }
 
@@ -84,8 +82,8 @@ public class MachineGun : Awapon
     public MachineGun()
     {
         delay = 0.2f;
-        damage = 5;
-        range = 2;
+        damage = 5f;
+        range = 1f;
         type = "LONG";
     }
 
@@ -95,8 +93,8 @@ public class IceGun : Awapon
     public IceGun()
     {
         delay = 0.2f;
-        damage = 5;
-        range = 3;
+        damage = 5f;
+        range = 3f;
         type = "LONG";
     }
 
@@ -106,8 +104,8 @@ public class ShotGun : Awapon
     public ShotGun()
     {
         delay = 3f;
-        damage = 50;
-        range = 1;
+        damage = 50f;
+        range = 1f;
         type = "LONG";
     }
 
