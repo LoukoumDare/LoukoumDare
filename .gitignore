@@ -6,7 +6,8 @@
 Assets/AssetStoreTools*
 
 #Galimor
-Assets/Test/*
+Assets/Tests/*
+Assets/TextMeshPro/*
 .gitignore
 
 # Visual Studio cache directory
