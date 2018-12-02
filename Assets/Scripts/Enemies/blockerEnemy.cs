@@ -18,6 +18,7 @@ public class blockerEnemy : MonoBehaviour {
 	public float distanceToMinion = 1f;
 	public float damage = 1;
 	public float PUSH_DURATION_WHEN_HITED = 0.2f;
+	public float attackRange = 2.5f;
 	enemyHealth _enemyHealth;
 	PlayerHealth playerHealth;
 
@@ -53,20 +54,23 @@ public class blockerEnemy : MonoBehaviour {
 		Vector3 vectorShift = transform.right * this.bumpSpeed * Time.deltaTime;
 
 		// checkBumb ();
-
-		if (diffPosition.magnitude < speed * Time.deltaTime && state != CLOSE_BY ) {
-			// transform.position = aimedPosition;
-			this.state = CLOSE_BY;
-			this.bumpSpeed = 0;
-			this.speed = 0f;
-			// randomRotateItem ();
-
-		} else if ( diffPosition.magnitude < (this.distanceToMinion)  && state != CLOSE_BY ) {
-			this.state = CLOSE_BY;
-			this.bumpSpeed = this.BUMP_SPEED + Random.Range(0f, -2f);
-			this.speed = 0f;
+		if (diffPosition.magnitude < this.attackRange) {
+			GetComponent <enemyAttack> ().checkAttack ();
 		} else {
-			transform.Translate (vectorMotion + vectorShift, Space.World);
+			if (diffPosition.magnitude < speed * Time.deltaTime && state != CLOSE_BY ) {
+				// transform.position = aimedPosition;
+				this.state = CLOSE_BY;
+				this.bumpSpeed = 0;
+				this.speed = 0f;
+				// randomRotateItem ();
+
+			} else if ( diffPosition.magnitude < (this.distanceToMinion)  && state != CLOSE_BY ) {
+				this.state = CLOSE_BY;
+				this.bumpSpeed = this.BUMP_SPEED + Random.Range(0f, -2f);
+				this.speed = 0f;
+			} else {
+				transform.Translate (vectorMotion + vectorShift, Space.World);
+			}
 		}
 	}
 	void OnCollisionEnter2D(Collision2D collision)

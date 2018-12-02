@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 61247407292278524}
   - component: {fileID: 50102122939041374}
   - component: {fileID: 114136907004063332}
+  - component: {fileID: 114458002313650840}
   m_Layer: 0
   m_Name: blockerEnemy
   m_TagString: Enemy
@@ -102,7 +103,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 150
   currentHealth: 0
-  sinkSpeed: 2.5
   scoreValue: 10
   deathClip: {fileID: 0}
 --- !u!114 &114409354965534580
@@ -127,6 +127,22 @@ MonoBehaviour:
   distanceToMinion: 1
   damage: 1
   PUSH_DURATION_WHEN_HITED: 0.2
+  attackRange: 3
+--- !u!114 &114458002313650840
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1946726541029024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c926c0d8cd41340b3acb468bb3dbaf4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  damage: 10
+  ATTACK_COOLDOWN: 5
+  timeSinceLastAttack: 0
 --- !u!212 &212201546237442470
 SpriteRenderer:
   m_ObjectHideFlags: 1

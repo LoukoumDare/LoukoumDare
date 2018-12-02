@@ -23,13 +23,18 @@ public class sharpy : MonoBehaviour {
 	public float timeToNextJerk = 2f;
 	public float JERK_DELAY = 0.5f;
 	public float MAX_JERK_RANGE = 5f;
-	public float damage = 20;
+	public float damageOnPlayerHit = 1;
+	public float attackRange = 1.5f;
+
 	enemyHealth _enemyHealth;
 	PlayerHealth playerHealth;
 
 	void Start () {
 		// aimedPosition = new Vector3(Random.Range (1, 10), Random.Range (0, 10));
 		this.currentJerk = Random.Range (0f, MAX_JERK_RANGE);
+		// playerHealth = GameObject.Find("player").GetComponent<PlayerHealth>();
+		GetComponent<drawCircle>().xradius = attackRange;
+		GetComponent<drawCircle>().yradius = attackRange;
 	}
 
 	void checkState () {
@@ -70,16 +75,19 @@ public class sharpy : MonoBehaviour {
 		this.checkState ();
 		this.checkIncrementJerk();
 
-		// compute shift right/left
-		Vector3 vectorShift = transform.right * (Mathf.Sin(currentJerk) - 0.5f) * sideSpeed * Time.deltaTime;
-
-		if (diffPosition.magnitude < speed * Time.deltaTime) {
-			transform.position = aimedPosition;
-			this.speed = 0;
-			this.sideSpeed = 0;
-
+		if (diffPosition.magnitude < this.attackRange) {
+			GetComponent <enemyAttack> ().checkAttack ();
 		} else {
-			transform.Translate (vectorMotion + vectorShift, Space.World);
+			// compute shift right/left
+			Vector3 vectorShift = transform.right * (Mathf.Sin(currentJerk) - 0.5f) * sideSpeed * Time.deltaTime;
+			if (diffPosition.magnitude < speed * Time.deltaTime) {
+				transform.position = aimedPosition;
+				this.speed = 0;
+				this.sideSpeed = 0;
+
+			} else {
+				transform.Translate (vectorMotion + vectorShift, Space.World);
+			}
 		}
 	}
 	void OnCollisionEnter2D(Collision2D collision)
@@ -95,7 +103,7 @@ public class sharpy : MonoBehaviour {
 		{
 			// Destroy(gameObject);
 			playerHealth = collision.gameObject.GetComponentInParent<PlayerHealth>();
-			playerHealth.TakeDamage ((int)(this.damage));
+			playerHealth.TakeDamage ((int)(this.damageOnPlayerHit));
 		}
 	}
 }

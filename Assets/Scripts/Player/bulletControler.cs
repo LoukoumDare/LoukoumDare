@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class bulletControler : MonoBehaviour {
     private Vector3 moveDirection = Vector3.zero;
-	public float damage = 30f;
+	public float damage = 100f;
 
     void Update()
     {
