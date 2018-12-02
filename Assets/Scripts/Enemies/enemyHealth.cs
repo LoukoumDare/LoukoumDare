@@ -20,10 +20,10 @@ public class enemyHealth : MonoBehaviour {
 	void Awake ()
 	{
 		// Setting up the references.
-		anim = GetComponent <Animator> ();
+		/* anim = GetComponent <Animator> ();
 		enemyAudio = GetComponent <AudioSource> ();
-		hitParticles = GetComponentInChildren <ParticleSystem> ();
-		capsuleCollider = GetComponent <CapsuleCollider> ();
+		hitParticles = GetComponentInChildren <ParticleSystem> ();*/
+		// capsuleCollider = GetComponent <CapsuleCollider> ();
 
 		// Setting the current health when the enemy first spawns.
 		currentHealth = startingHealth;
@@ -42,16 +42,16 @@ public class enemyHealth : MonoBehaviour {
 			return;
 
 		// Play the hurt sound effect.
-		enemyAudio.Play ();
+		// enemyAudio.Play ();
 
 		// Reduce the current health by the amount of damage sustained.
 		currentHealth -= amount;
 
 		// Set the position of the particle system to where the hit was sustained.
-		hitParticles.transform.position = hitPoint;
+		// hitParticles.transform.position = hitPoint;
 
 		// And play the particles.
-		hitParticles.Play();
+		// hitParticles.Play();
 
 		// If the current health is less than or equal to zero...
 		if(currentHealth <= 0)
@@ -68,14 +68,14 @@ public class enemyHealth : MonoBehaviour {
 		isDead = true;
 
 		// Turn the collider into a trigger so shots can pass through it.
-		capsuleCollider.isTrigger = true;
+		// capsuleCollider.isTrigger = true;
 
 		// Tell the animator that the enemy is dead.
-		anim.SetTrigger ("Dead");
+		// anim.SetTrigger ("Dead");
 
 		// Change the audio clip of the audio source to the death clip and play it (this will stop the hurt clip playing).
-		enemyAudio.clip = deathClip;
-		enemyAudio.Play ();
+		/* enemyAudio.clip = deathClip;
+		enemyAudio.Play (); */
 
 		Destroy (gameObject, 0.5f);
 	}

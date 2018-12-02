@@ -17,6 +17,9 @@ public class blockerEnemy : MonoBehaviour {
 	public float BUMP_SPEED = -1f;
 	public float distanceToMinion = 1f;
 	public float damage = 1;
+	public float PUSH_DURATION_WHEN_HITED = 0.2f;
+	enemyHealth _enemyHealth;
+	PlayerHealth playerHealth;
 
 	void Start () {
 		this.distanceToMinion = MIN_DISTANCE_TO_MINION + Random.Range (-1f, 1f);
@@ -40,6 +43,7 @@ public class blockerEnemy : MonoBehaviour {
 		this.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360) * -1);
 	}
 	void Update () {
+		aimedPosition = GameObject.Find("player").transform.position;
 		float AngleRad = Mathf.Atan2(aimedPosition.x - transform.position.x, aimedPosition.y - transform.position.y);
 		float AngleDeg = (180 / Mathf.PI) * AngleRad * -1;
 		this.transform.rotation = Quaternion.Euler(0, 0, AngleDeg); 
@@ -63,6 +67,21 @@ public class blockerEnemy : MonoBehaviour {
 			this.speed = 0f;
 		} else {
 			transform.Translate (vectorMotion + vectorShift, Space.World);
+		}
+	}
+	void OnCollisionEnter2D(Collision2D collision)
+	{
+		if (collision.gameObject.tag == "Bullet")
+		{
+			_enemyHealth = GetComponent <enemyHealth> ();
+			_enemyHealth.TakeDamage ((int)(collision.gameObject.GetComponent<bulletControler> ().damage), new Vector3(0, 0, 0));
+			Destroy(collision.gameObject, PUSH_DURATION_WHEN_HITED);
+		}
+		if (collision.gameObject.tag == "Body")
+		{
+			// Destroy(gameObject);
+			playerHealth = collision.gameObject.GetComponentInParent<PlayerHealth>();
+			playerHealth.TakeDamage ((int)(this.damage));
 		}
 	}
 }

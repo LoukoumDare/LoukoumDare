@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 50736337990895084}
   - component: {fileID: 61582497101756998}
   - component: {fileID: 114185930825618168}
+  - component: {fileID: 114775805583308032}
   m_Layer: 0
   m_Name: archeryEnemy
   m_TagString: Untagged
@@ -105,9 +106,27 @@ MonoBehaviour:
   timeSinceStartRepositioning: 0
   state: 0
   DELAY_BETWEEN_SHOT: 2
-  MIN_DISTANCE_TO_MINION: 5
+  MIN_DISTANCE_TO_MINION: 7
   DELAY_FOR_REPOSITIONING: 1
   sideStepSpeed: 1
+  damage: 5
+  damageOnPlayerHit: 30
+--- !u!114 &114775805583308032
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1826127872777332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b6ee5ea48a30470d989d22576a7a3b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHealth: 100
+  currentHealth: 0
+  sinkSpeed: 2.5
+  scoreValue: 10
+  deathClip: {fileID: 0}
 --- !u!212 &212417033148019600
 SpriteRenderer:
   m_ObjectHideFlags: 1

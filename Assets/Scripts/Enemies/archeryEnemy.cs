@@ -20,6 +20,9 @@ public class archeryEnemy : MonoBehaviour {
 	private bool needShot = false;
 	public float sideStepSpeed = 1f;
 	public float damage = 5;
+	public float damageOnPlayerHit = 1;
+	enemyHealth _enemyHealth;
+	PlayerHealth playerHealth;
 
 	void Start () {
 		this.distanceToMinion = MIN_DISTANCE_TO_MINION + Random.Range (-1f, 1f);
@@ -47,6 +50,8 @@ public class archeryEnemy : MonoBehaviour {
 		}
 	}
 	void Update () {
+		aimedPosition = GameObject.Find("player").transform.position;
+
 		float AngleRad = Mathf.Atan2(aimedPosition.x - transform.position.x, aimedPosition.y - transform.position.y);
 		float AngleDeg = (180 / Mathf.PI) * AngleRad * -1;
 		this.transform.rotation = Quaternion.Euler(0, 0, AngleDeg); 
@@ -76,4 +81,22 @@ public class archeryEnemy : MonoBehaviour {
 			transform.Translate (vectorMotion, Space.World);
 		}
 	}
+	void OnCollisionEnter2D(Collision2D collision)
+	{
+		if (collision.gameObject.tag == "Bullet")
+		{
+			// Destroy(gameObject);
+			Destroy(collision.gameObject);
+			_enemyHealth = GetComponent <enemyHealth> ();
+			_enemyHealth.TakeDamage ((int)(collision.gameObject.GetComponent<bulletControler> ().damage), new Vector3(0, 0, 0));
+			Debug.Log (collision.gameObject.GetComponent<bulletControler> ().damage);
+		}
+		if (collision.gameObject.tag == "Body")
+		{
+			// Destroy(gameObject);
+			playerHealth = collision.gameObject.GetComponentInParent<PlayerHealth>();
+			playerHealth.TakeDamage ((int)(this.damageOnPlayerHit));
+		}
+	}
+
 }
