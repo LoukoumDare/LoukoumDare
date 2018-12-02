@@ -36,7 +36,6 @@ public class waponControler : MonoBehaviour {
             timeSinceLastShoot += Time.deltaTime;
             if (timeSinceLastShoot > wapon.delay)
             {
-				Debug.Log(isAllowedToShoot() + "moveOrShoot");
                 if (isAllowedToShoot()
 					&& ((autoShootAllowed && Input.GetButton("Fire1"))   
 						|| (Input.GetButtonDown("Fire1"))
