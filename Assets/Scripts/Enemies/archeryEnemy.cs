@@ -33,9 +33,9 @@ public class archeryEnemy : MonoBehaviour {
 			if (timeSinceLastShoot > DELAY_BETWEEN_SHOT) {
                 timeSinceLastShoot = 0;
                 GameObject arrow = Instantiate(Resources.Load("arrow", typeof(GameObject)), new Vector3(transform.position.x, transform.position.y, -2), transform.rotation * Quaternion.Euler(0, 0, 90)) as GameObject;
-                arrow.GetComponent<bulletControler>().damage = this.damage;
-                //Destroy(arrow, 5);
-                Debug.Log("arrow");
+                Destroy(arrow, 2f);
+                arrow.GetComponent<bulletControler>().damage = damage;
+
 				this.state = REPOSITIONING;
 				sideStepSpeed = Random.Range (-1f, 1f);
 			}
@@ -71,7 +71,7 @@ public class archeryEnemy : MonoBehaviour {
 			if (state == REPOSITIONING) {
 				repositioning ();
 				Vector3 vectorShift = transform.right * sideStepSpeed * Time.deltaTime;;
-				transform.Translate (vectorShift, Space.World);
+				transform.Translate (vectorShift);
 			} else {
 				this.state = SHOTING;
 				shot ();
@@ -94,10 +94,8 @@ public class archeryEnemy : MonoBehaviour {
 		}
 		if (collision.gameObject.tag == "Player")
 		{
-			// Destroy(gameObject);
-			playerHealth = collision.gameObject.GetComponentInParent<PlayerHealth>();
-			playerHealth.TakeDamage ((int)(this.damageOnPlayerHit));
-		}
+            GetComponent<enemyAttack>().checkAttack();
+        }
 	}
 
 }

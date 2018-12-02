@@ -5,7 +5,7 @@ using UnityEngine;
 public class enemyAttack : MonoBehaviour {
 	public Transform player;
 	private PlayerHealth playerHealth;
-	public float damage = 20;
+	public float damage = 1;
 	public float ATTACK_COOLDOWN = 3f;
 	public float timeSinceLastAttack = 0f;
 

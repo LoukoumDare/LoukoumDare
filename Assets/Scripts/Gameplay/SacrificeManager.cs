@@ -116,7 +116,7 @@ public class SacrificeManager : MonoBehaviour
 			case e_sacrifice.REDUCE_VISION:
 				{
 					Transform player = GameObject.FindGameObjectWithTag("Player").transform;
-					Transform visionMaskField = player.parent.transform.Find("VisionFieldMask");
+					Transform visionMaskField = player.parent.transform.Find("VisionMaskPrefab");
 					visionMaskField.localScale -= new Vector3(3, 3, 0);
 					if (visionMaskField.localScale.x <= 1)
 					{

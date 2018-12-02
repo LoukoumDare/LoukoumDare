@@ -23,7 +23,7 @@ public class sharpy : MonoBehaviour {
 	public float timeToNextJerk = 2f;
 	public float JERK_DELAY = 0.5f;
 	public float MAX_JERK_RANGE = 5f;
-	public float damageOnPlayerHit = 1;
+	public float damageOnPlayerHit = 5;
 	public float attackRange = 1.5f;
 
 	enemyHealth _enemyHealth;
@@ -110,9 +110,7 @@ public class sharpy : MonoBehaviour {
 		}
 		if (collision.gameObject.tag == "Body")
 		{
-			// Destroy(gameObject);
-			playerHealth = collision.gameObject.GetComponentInParent<PlayerHealth>();
-			playerHealth.TakeDamage ((int)(this.damageOnPlayerHit));
-		}
+            GetComponent<enemyAttack>().checkAttack();
+        }
 	}
 }
