@@ -23,6 +23,7 @@ public class sharpy : MonoBehaviour {
 	public float timeToNextJerk = 2f;
 	public float JERK_DELAY = 0.5f;
 	public float MAX_JERK_RANGE = 5f;
+	public float damage = 20;
 
 	void Start () {
 		// aimedPosition = new Vector3(Random.Range (1, 10), Random.Range (0, 10));
