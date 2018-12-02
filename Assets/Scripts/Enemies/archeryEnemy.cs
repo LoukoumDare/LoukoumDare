@@ -91,7 +91,7 @@ public class archeryEnemy : MonoBehaviour {
 			_enemyHealth.TakeDamage ((int)(collision.gameObject.GetComponent<bulletControler> ().damage), new Vector3(0, 0, 0));
 			Debug.Log (collision.gameObject.GetComponent<bulletControler> ().damage);
 		}
-		if (collision.gameObject.tag == "Body")
+		if (collision.gameObject.tag == "Player")
 		{
 			// Destroy(gameObject);
 			playerHealth = collision.gameObject.GetComponentInParent<PlayerHealth>();
