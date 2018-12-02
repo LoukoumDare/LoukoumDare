@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Events;
 
-public class GameManager : MonoBehaviour
+public class GameMgr : MonoBehaviour 
 {
 
 	//change game mode
@@ -11,16 +11,16 @@ public class GameManager : MonoBehaviour
 	//check for mode completion
 	//switch to sacrifice mode
 
-	static GameManager mInstance;
+	static GameMgr mInstance;
 
-	public static GameManager Instance
+	public static GameMgr Instance
 	{
 		get
 		{
 			if (mInstance == null)
 			{
 				GameObject go = new GameObject();
-				mInstance = go.AddComponent<GameManager>();
+				mInstance = go.AddComponent<GameMgr>();
 			}
 			return mInstance;
 		}
