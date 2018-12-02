@@ -32,10 +32,9 @@ public class archeryEnemy : MonoBehaviour {
 		if (this.state == SHOTING) {
 			timeSinceLastShoot += Time.deltaTime;
 			if (timeSinceLastShoot > DELAY_BETWEEN_SHOT) {
-
-                GameObject instance = Instantiate(Resources.Load("bullet", typeof(GameObject)), new Vector3(transform.position.x, transform.position.y, -2), transform.rotation) as GameObject;
-                instance.GetComponent<bulletControler>().damage = this.damage;
-                Destroy(instance, 5);
+                GameObject arrow = Instantiate(Resources.Load("arrow", typeof(GameObject)), new Vector3(transform.position.x, transform.position.y, -2), transform.rotation * Quaternion.Euler(0, 0, 90)) as GameObject;
+                arrow.GetComponent<bulletControler>().damage = this.damage;
+                //Destroy(arrow, 5);
                 timeSinceLastShoot = 0;
 				needShot = true;
 				this.state = REPOSITIONING;
