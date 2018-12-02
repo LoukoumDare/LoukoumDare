@@ -32,6 +32,10 @@ public class PlayerHealth : MonoBehaviour
 
     void Update()
     {
+        if (currentHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
         if (isDead)
             return;
 

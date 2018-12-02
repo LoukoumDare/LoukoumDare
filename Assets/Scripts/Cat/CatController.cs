@@ -21,7 +21,7 @@ public class CatController : MonoBehaviour
         {
             timeSinceLastCollision += Time.deltaTime;
             GameObject Player = GameObject.Find("player");
-            Vector3 moveDirection = new Vector3(Player.transform.position.x - transform.position.x, Player.transform.position.y - transform.position.y, transform.position.z);
+            Vector3 moveDirection = new Vector3(Player.transform.position.x - transform.position.x, Player.transform.position.y - transform.position.y, 0);
             moveDirection = moveDirection * speed * Time.deltaTime;
             transform.Translate(moveDirection);
 

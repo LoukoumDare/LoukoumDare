@@ -7,8 +7,8 @@ public class waponControler : MonoBehaviour {
     Awapon wapon;
 	private bool moveOrShoot = false;
 	private bool autoShootAllowed = true;
-
-	void Start () 
+    bool facingRight = false;
+    void Start () 
     {
         wapon = new Gun();
 		EventManager.StartListening("MOVE_OR_SHOOT", () => { moveOrShoot = true; });
@@ -16,6 +16,17 @@ public class waponControler : MonoBehaviour {
 
 	}
 	void Update () {
+        Vector3 mouseworldpose = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        float moveDirection = transform.position.x - mouseworldpose.x;
+        if ((facingRight && moveDirection < -0.01) || (!facingRight && moveDirection > 0.01))
+        {
+            facingRight = !facingRight;
+            //transform.position = new Vector3(0, 0, 0);
+            transform.localScale = Vector3.Scale(transform.localScale, new Vector3(1, -1, 1));
+        }
+        float AngleRad = Mathf.Atan2(mouseworldpose.y - transform.position.y, mouseworldpose.x - transform.position.x);
+        float AngleDeg = (180 / Mathf.PI) * AngleRad;
+        transform.rotation = Quaternion.Euler(0, 0, AngleDeg);
         if (Input.GetButton("Weapon"))
         {
             wapon = new MachineGun();
@@ -29,9 +40,7 @@ public class waponControler : MonoBehaviour {
 					||	(Input.GetButtonDown("Fire1"))
 					&& isAllowedToShoot() )
 				{
-                    Vector3 mouseworldpose = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                    float AngleRad = Mathf.Atan2(mouseworldpose.y - transform.position.y, mouseworldpose.x - transform.position.x);
-                    float AngleDeg = (180 / Mathf.PI) * AngleRad;
+
                     GameObject instance = Object.Instantiate(Resources.Load("bullet", typeof(GameObject)), new Vector3(transform.position.x, transform.position.y, -2), Quaternion.Euler(0, 0, AngleDeg)) as GameObject;
                     instance.GetComponent<bulletControler>().damage = wapon.damage;
                     Destroy(instance, wapon.range);
