@@ -5,9 +5,14 @@ using UnityEngine;
 public class waponControler : MonoBehaviour {
     public float timeSinceLastShoot = 0;
     Awapon wapon;
-    void Start () 
+	private bool moveOrShoot = false;
+	private bool autoShootAllowed = true;
+
+	void Start () 
     {
         wapon = new Gun();
+		EventManager.StartListening("MOVE_OR_SHOOT", () => { moveOrShoot = true; });
+		EventManager.StartListening("NO_AUTOSHOOT", () => { autoShootAllowed = false; });
 
 	}
 	void Update () {
@@ -20,8 +25,10 @@ public class waponControler : MonoBehaviour {
             timeSinceLastShoot += Time.deltaTime;
             if (timeSinceLastShoot > wapon.delay)
             {
-                if (Input.GetButton("Fire1"))
-                {
+                if (	(autoShootAllowed && Input.GetButton("Fire1"))   
+					||	(Input.GetButtonDown("Fire1"))
+					&& isAllowedToShoot() )
+				{
                     Vector3 mouseworldpose = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     float AngleRad = Mathf.Atan2(mouseworldpose.y - transform.position.y, mouseworldpose.x - transform.position.x);
                     float AngleDeg = (180 / Mathf.PI) * AngleRad;
@@ -33,6 +40,16 @@ public class waponControler : MonoBehaviour {
             }
         }
     }
+
+	public bool isAllowedToShoot()
+	{
+		if (moveOrShoot)
+		{
+			return (Mathf.Abs(Input.GetAxis("Horizontal")) > 0 || Mathf.Abs(Input.GetAxis("Vertical")) > 0);
+		}
+		return true;
+	}
+	
 }
 public abstract class Awapon
 {
