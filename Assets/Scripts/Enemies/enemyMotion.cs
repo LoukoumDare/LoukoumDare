@@ -8,12 +8,15 @@ public class enemyMotion : MonoBehaviour {
 	private float x;
 	private float y;
 	public float damage = 10;
+	public float damageOnPlayerHit = 1;
 	enemyHealth _enemyHealth;
 	PlayerHealth playerHealth;
+	public float attackRange = 2.5f;
 
 	// Use this for initialization
 	void Start () {
 		aimedPosition = new Vector3(Random.Range (-3, 3), Random.Range (-3, 3));
+		playerHealth = GameObject.Find("player").GetComponent<PlayerHealth>();
 	}
 	
 	// Update is called once per frame
@@ -21,12 +24,15 @@ public class enemyMotion : MonoBehaviour {
 		aimedPosition = GameObject.Find("player").transform.position;
 		Vector3 diffPosition = aimedPosition - transform.position;
 
-		if (diffPosition.magnitude < speed * Time.deltaTime) {
-			transform.position = aimedPosition;
-			
+		if (diffPosition.magnitude < this.attackRange) {
+			GetComponent <enemyAttack> ().checkAttack ();
 		} else {
-			
-			transform.Translate (diffPosition.normalized * speed * Time.deltaTime);
+			if (diffPosition.magnitude < speed * Time.deltaTime) {
+				transform.position = aimedPosition;
+				
+			} else {
+				transform.Translate (diffPosition.normalized * speed * Time.deltaTime);
+			}
 		}
 	}
     void OnCollisionEnter2D(Collision2D collision)
@@ -41,8 +47,7 @@ public class enemyMotion : MonoBehaviour {
 		if (collision.gameObject.tag == "Player")
 		{
 			// Destroy(gameObject);
-			playerHealth = collision.gameObject.GetComponentInParent<PlayerHealth>();
-			playerHealth.TakeDamage ((int)(this.damage));
+			playerHealth.TakeDamage ((int)(this.damageOnPlayerHit));
 		}
     }
 }
