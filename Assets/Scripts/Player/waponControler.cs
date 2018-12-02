@@ -10,7 +10,7 @@ public class waponControler : MonoBehaviour {
     bool facingRight = false;
 	void Start () 
     {
-        wapon = new Gun();
+        wapon = new MachineGun();
 		EventManager.StartListening("MOVE_OR_SHOOT", () => { moveAndShootAllowed = false; });
 		EventManager.StartListening("NO_AUTOSHOOT", () => { autoShootAllowed = false; });
 
@@ -29,7 +29,7 @@ public class waponControler : MonoBehaviour {
         transform.rotation = Quaternion.Euler(0, 0, AngleDeg);
         if (Input.GetButton("Weapon"))
         {
-            wapon = new MachineGun();
+            wapon = new Gun();
         }
         if (wapon.type=="LONG")
         {
@@ -81,7 +81,7 @@ public class Gun : Awapon
     public Gun()
     {
         delay = 1f;
-        damage = 10f;
+        damage = 50f;
         range = 5f;
         type = "LONG";
     }
@@ -92,7 +92,7 @@ public class MachineGun : Awapon
     public MachineGun()
     {
         delay = 0.2f;
-        damage = 5f;
+        damage = 30f;
         range = 1f;
         type = "LONG";
     }
