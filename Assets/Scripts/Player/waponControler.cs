@@ -5,13 +5,13 @@ using UnityEngine;
 public class waponControler : MonoBehaviour {
     public float timeSinceLastShoot = 0;
     Awapon wapon;
-	private bool moveOrShoot = false;
+	private bool moveAndShootAllowed = true;
 	private bool autoShootAllowed = true;
 
 	void Start () 
     {
         wapon = new Gun();
-		EventManager.StartListening("MOVE_OR_SHOOT", () => { moveOrShoot = true; });
+		EventManager.StartListening("MOVE_OR_SHOOT", () => { moveAndShootAllowed = false; });
 		EventManager.StartListening("NO_AUTOSHOOT", () => { autoShootAllowed = false; });
 
 	}
@@ -25,11 +25,15 @@ public class waponControler : MonoBehaviour {
             timeSinceLastShoot += Time.deltaTime;
             if (timeSinceLastShoot > wapon.delay)
             {
-                if (	(autoShootAllowed && Input.GetButton("Fire1"))   
-					||	(Input.GetButtonDown("Fire1"))
-					&& isAllowedToShoot() )
+				Debug.Log(isAllowedToShoot() + "moveOrShoot");
+                if (isAllowedToShoot()
+					&& ((autoShootAllowed && Input.GetButton("Fire1"))   
+						|| (Input.GetButtonDown("Fire1"))
+						)
+					)
 				{
-                    Vector3 mouseworldpose = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+					Vector3 mouseworldpose = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     float AngleRad = Mathf.Atan2(mouseworldpose.y - transform.position.y, mouseworldpose.x - transform.position.x);
                     float AngleDeg = (180 / Mathf.PI) * AngleRad;
                     GameObject instance = Object.Instantiate(Resources.Load("bullet", typeof(GameObject)), new Vector3(transform.position.x, transform.position.y, -2), Quaternion.Euler(0, 0, AngleDeg)) as GameObject;
@@ -43,9 +47,9 @@ public class waponControler : MonoBehaviour {
 
 	public bool isAllowedToShoot()
 	{
-		if (moveOrShoot)
+		if ( ! moveAndShootAllowed)
 		{
-			return (Mathf.Abs(Input.GetAxis("Horizontal")) > 0 || Mathf.Abs(Input.GetAxis("Vertical")) > 0);
+			return ( Mathf.Abs(Input.GetAxis("Horizontal")) < 0.1 && Mathf.Abs(Input.GetAxis("Vertical")) < 0.1);
 		}
 		return true;
 	}
