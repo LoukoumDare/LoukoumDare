@@ -22,7 +22,9 @@ public class blockerEnemy : MonoBehaviour {
 	enemyHealth _enemyHealth;
 	PlayerHealth playerHealth;
 
-	void Start () {
+    bool facingRight = true;
+
+    void Start () {
 		this.distanceToMinion = MIN_DISTANCE_TO_MINION + Random.Range (-1f, 1f);
 		// aimedPosition = new Vector3(Random.Range (1, 10), Random.Range (0, 10));
 	}
@@ -45,9 +47,9 @@ public class blockerEnemy : MonoBehaviour {
 	}
 	void Update () {
 		aimedPosition = GameObject.Find("player").transform.position;
-		float AngleRad = Mathf.Atan2(aimedPosition.x - transform.position.x, aimedPosition.y - transform.position.y);
-		float AngleDeg = (180 / Mathf.PI) * AngleRad * -1;
-		this.transform.rotation = Quaternion.Euler(0, 0, AngleDeg); 
+		//float AngleRad = Mathf.Atan2(aimedPosition.x - transform.position.x, aimedPosition.y - transform.position.y);
+		//float AngleDeg = (180 / Mathf.PI) * AngleRad * -1;
+		//this.transform.rotation = Quaternion.Euler(0, 0, AngleDeg); 
 
 		Vector3 diffPosition = aimedPosition - transform.position;
 		Vector3 vectorMotion = diffPosition.normalized * speed * Time.deltaTime;
@@ -69,8 +71,15 @@ public class blockerEnemy : MonoBehaviour {
 				this.bumpSpeed = this.BUMP_SPEED + Random.Range(0f, -2f);
 				this.speed = 0f;
 			} else {
-				transform.Translate (vectorMotion + vectorShift, Space.World);
-			}
+                var translationVector = vectorMotion + vectorShift;
+                transform.Translate(translationVector, Space.World);
+
+                if ((facingRight && translationVector.x < -0.01) || (!facingRight && translationVector.x > 0.01))
+                {
+                    facingRight = !facingRight;
+                    transform.localScale = Vector3.Scale(transform.localScale, new Vector3(-1, 1, 1));
+                }
+            }
 		}
 	}
 	void OnCollisionEnter2D(Collision2D collision)

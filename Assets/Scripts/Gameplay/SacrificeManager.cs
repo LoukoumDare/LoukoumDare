@@ -12,6 +12,7 @@ public class SacrificeManager : MonoBehaviour
 
 	/// Useful object
 	public Transform halfVisionHidingObj;
+	public Transform hudToHide;
 
 	[Flags]
 	public enum e_sacrifice
@@ -40,8 +41,7 @@ public class SacrificeManager : MonoBehaviour
 		{
 			if (Input.GetKeyDown("" + i))
 			{
-				Debug.Log((e_sacrifice)i);
-				Sacrifice((e_sacrifice)i);
+				Sacrifice((e_sacrifice) (1<<i));
 			}
 		}
 
@@ -75,12 +75,13 @@ public class SacrificeManager : MonoBehaviour
 		switch (_sacrificeType)
 		{
 			case e_sacrifice.HIDE_HUD:
-
+				hudToHide.gameObject.SetActive(false);
+				Debug.Log("HIDE_HUD");
 				break;
 			case e_sacrifice.REDUCE_VISION:
 				{
-					GameObject player = GameObject.FindGameObjectWithTag("Player");
-					Transform visionMaskField = player.transform.Find("VisionFieldMask");
+					Transform player = GameObject.FindGameObjectWithTag("Player").transform;
+					Transform visionMaskField = player.parent.transform.Find("VisionFieldMask");
 					visionMaskField.localScale -= new Vector3(3, 3, 0);
 					if (visionMaskField.localScale.x <=1)
 					{
@@ -92,17 +93,16 @@ public class SacrificeManager : MonoBehaviour
 				}
 			case e_sacrifice.HALF_VISION:
 				{
+					Debug.Log("HalF Vision");
 					GameObject player = GameObject.FindGameObjectWithTag("Player");
 					var halfVisionObject = Instantiate(halfVisionHidingObj, player.transform.position, player.transform.rotation);
 					halfVisionObject.transform.parent = player.transform;
 					sacrificesDone |= e_sacrifice.HALF_VISION;
-					Debug.Log("HalF Vision");
 					break;
 				}
 			case e_sacrifice.SLIPPERY:
 				break;
 			case e_sacrifice.MOVE_OR_SHOOT:
-
 				EventManager.TriggerEvent("MOVE_OR_SHOOT");
 				sacrificesDone |= e_sacrifice.MOVE_OR_SHOOT;
 				Debug.Log("MOVE_OR_SHOOT");
