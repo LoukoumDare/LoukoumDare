@@ -25,10 +25,12 @@ public class poper : MonoBehaviour
 	public int archeryInstanceNumber = 0;
 	public int sharpyInstanceNumber = 0;
 	public int blockerInstanceNumber = 0;
-	// Use this for initialization
-	void Start()
-	{
+	private int enemylevel = 0;
+	
 
+	void start ()
+	{
+		EventManager.StartListening("INCREASE_ENNEMY", () => { enemylevel++; });
 	}
 
 	// Update is called once per frame
@@ -38,8 +40,8 @@ public class poper : MonoBehaviour
 		if (this.timeSinceLastPop > popDelay)
 		{
 			this.timeSinceLastPop = 0;
-			Transform go;
 
+			Transform go;
 			var r = Random.Range(0, probaSharpy + probaBlocker + probaArchery);
 
 			if (needSpawnCat && isCatspawner)
@@ -51,21 +53,30 @@ public class poper : MonoBehaviour
 				if (r < probaSharpy)
 				{
 					go = sharpy;
+					Transform tr = Instantiate(go, transform.position, Quaternion.identity);
+					tr.GetComponent<sharpy>().speed = Mathf.Pow(tr.GetComponent<sharpy>().speed, 1.1f * enemylevel);
+					tr.GetComponent<sharpy>().attackRange = Mathf.Pow(tr.GetComponent<sharpy>().damageOnPlayerHit, 1.2f * enemylevel);
+					tr.GetComponent<enemyHealth>().startingHealth = (int)Mathf.Pow(tr.GetComponent<enemyHealth>().startingHealth, 1.2f * enemylevel);
 				}
 				else if (r < probaSharpy + probaBlocker)
 				{
 					go = blockerEnemy;
+					Transform tr = Instantiate(go, transform.position, Quaternion.identity);
+					tr.GetComponent<blockerEnemy>().speed = Mathf.Pow(tr.GetComponent<sharpy>().speed, 1.1f * enemylevel);
+					tr.GetComponent<blockerEnemy>().attackRange = Mathf.Pow(tr.GetComponent<sharpy>().damageOnPlayerHit, 1.2f * enemylevel);
+					tr.GetComponent<enemyHealth>().startingHealth = (int)Mathf.Pow(tr.GetComponent<enemyHealth>().startingHealth, 1.2f * enemylevel);
 				}
 				else
 				{
 					go = archeryEnemy;
+					Transform tr = Instantiate(go, transform.position, Quaternion.identity);
+
 				}
 			}
 
 			nbmobsMax--;
 
 
-			Instantiate(go, transform.position, Quaternion.identity);
 
 			//Instantiate(ennemy, new Vector3(Random.Range(-6f, 6f), Random.Range(-6f, 6f), 0), Quaternion.identity);
 			//Instantiate(blockerEnemy, new Vector3(Random.Range(-6f, 6f), Random.Range(-6f, 6f), 0), Quaternion.identity);

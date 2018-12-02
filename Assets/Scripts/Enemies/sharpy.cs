@@ -27,13 +27,11 @@ public class sharpy : MonoBehaviour {
 	public float attackRange = 1.5f;
 
 	enemyHealth _enemyHealth;
-	PlayerHealth playerHealth;
     bool facingRight = false;
 
 	void Start () {
 		// aimedPosition = new Vector3(Random.Range (1, 10), Random.Range (0, 10));
 		this.currentJerk = Random.Range (0f, MAX_JERK_RANGE);
-		// playerHealth = GameObject.Find("player").GetComponent<PlayerHealth>();
 		GetComponent<drawCircle>().xradius = attackRange;
 		GetComponent<drawCircle>().yradius = attackRange;
 	}
@@ -106,7 +104,6 @@ public class sharpy : MonoBehaviour {
 			Destroy(collision.gameObject);
 			_enemyHealth = GetComponent <enemyHealth> ();
 			_enemyHealth.TakeDamage ((int)(collision.gameObject.GetComponent<bulletControler> ().damage), new Vector3(0, 0, 0));
-			Debug.Log (collision.gameObject.GetComponent<bulletControler> ().damage);
 		}
 		if (collision.gameObject.tag == "Body")
 		{

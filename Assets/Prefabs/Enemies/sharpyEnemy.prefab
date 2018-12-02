@@ -167,11 +167,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aimedPosition: {x: 0, y: 0, z: 0}
-  speed: 3
-  sideSpeed: 3
+  speed: 4
+  sideSpeed: 4
   timeSinceLastChangeState: 0
   state: 0
-  jerkIncrementBase: 0.5
+  jerkIncrementBase: 0.75
   BOOST_TIME_DURATION: 1
   STANDARD_TIME_DURATION: 2
   timeToNextJerk: 2

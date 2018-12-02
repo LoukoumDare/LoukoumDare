@@ -55,7 +55,6 @@ public class SacrificeManager : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.Return))
 		{
 			WaitForSacrifice();
-			Debug.Log("coucou");
 		}
 
 	}
@@ -100,8 +99,8 @@ public class SacrificeManager : MonoBehaviour
 			Sacrifice((e_sacrifice)sacri2);
 
 		satanCanvas.SetActive(false);
-
 		hudToHide.gameObject.SetActive(hudneedtobeshownagainafterdevil);
+		EventManager.TriggerEvent("INCREASE_ENNEMY");
 	}
 
 	void Sacrifice(e_sacrifice _sacrificeType)
