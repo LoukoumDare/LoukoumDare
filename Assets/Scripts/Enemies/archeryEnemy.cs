@@ -17,7 +17,6 @@ public class archeryEnemy : MonoBehaviour {
 	public float MIN_DISTANCE_TO_MINION = 6;
 	public float DELAY_FOR_REPOSITIONING = 1f;
 	private float distanceToMinion = 1f;
-	private bool needShot = false;
 	public float sideStepSpeed = 1f;
 	public float damage = 5;
 	public float damageOnPlayerHit = 1;
@@ -32,11 +31,11 @@ public class archeryEnemy : MonoBehaviour {
 		if (this.state == SHOTING) {
 			timeSinceLastShoot += Time.deltaTime;
 			if (timeSinceLastShoot > DELAY_BETWEEN_SHOT) {
+                timeSinceLastShoot = 0;
                 GameObject arrow = Instantiate(Resources.Load("arrow", typeof(GameObject)), new Vector3(transform.position.x, transform.position.y, -2), transform.rotation * Quaternion.Euler(0, 0, 90)) as GameObject;
                 arrow.GetComponent<bulletControler>().damage = this.damage;
                 //Destroy(arrow, 5);
-                timeSinceLastShoot = 0;
-				needShot = true;
+                Debug.Log("arrow");
 				this.state = REPOSITIONING;
 				sideStepSpeed = Random.Range (-1f, 1f);
 			}
