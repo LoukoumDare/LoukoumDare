@@ -23,6 +23,9 @@ public class sharpy : MonoBehaviour {
 	public float timeToNextJerk = 2f;
 	public float JERK_DELAY = 0.5f;
 	public float MAX_JERK_RANGE = 5f;
+	public float damage = 20;
+	enemyHealth _enemyHealth;
+	PlayerHealth playerHealth;
 
 	void Start () {
 		// aimedPosition = new Vector3(Random.Range (1, 10), Random.Range (0, 10));
@@ -30,7 +33,6 @@ public class sharpy : MonoBehaviour {
 	}
 
 	void checkState () {
-		Debug.Log (this.timeSinceLastChangeState);
 		this.timeSinceLastChangeState += Time.deltaTime;
 		if (state == BOOST) {
 			if (this.timeSinceLastChangeState > this.BOOST_TIME_DURATION) {
@@ -58,6 +60,7 @@ public class sharpy : MonoBehaviour {
 	}
 
 	void Update () {
+		aimedPosition = GameObject.Find("player").transform.position;
 		float AngleRad = Mathf.Atan2(aimedPosition.x - transform.position.x, aimedPosition.y - transform.position.y);
 		float AngleDeg = (180 / Mathf.PI) * AngleRad * -1;
 		this.transform.rotation = Quaternion.Euler(0, 0, AngleDeg); 
@@ -72,9 +75,27 @@ public class sharpy : MonoBehaviour {
 
 		if (diffPosition.magnitude < speed * Time.deltaTime) {
 			transform.position = aimedPosition;
+			this.speed = 0;
+			this.sideSpeed = 0;
 
 		} else {
 			transform.Translate (vectorMotion + vectorShift, Space.World);
+		}
+	}
+	void OnCollisionEnter2D(Collision2D collision)
+	{
+		if (collision.gameObject.tag == "Bullet")
+		{
+			Destroy(collision.gameObject);
+			_enemyHealth = GetComponent <enemyHealth> ();
+			_enemyHealth.TakeDamage ((int)(collision.gameObject.GetComponent<bulletControler> ().damage), new Vector3(0, 0, 0));
+			Debug.Log (collision.gameObject.GetComponent<bulletControler> ().damage);
+		}
+		if (collision.gameObject.tag == "Body")
+		{
+			// Destroy(gameObject);
+			playerHealth = collision.gameObject.GetComponentInParent<PlayerHealth>();
+			playerHealth.TakeDamage ((int)(this.damage));
 		}
 	}
 }
