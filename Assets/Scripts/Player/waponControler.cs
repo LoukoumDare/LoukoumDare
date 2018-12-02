@@ -7,7 +7,7 @@ public class waponControler : MonoBehaviour {
     Awapon wapon;
 	private bool moveAndShootAllowed = true;
 	private bool autoShootAllowed = true;
-
+    bool facingRight = false;
 	void Start () 
     {
         wapon = new Gun();
@@ -16,6 +16,17 @@ public class waponControler : MonoBehaviour {
 
 	}
 	void Update () {
+        Vector3 mouseworldpose = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        float moveDirection = transform.position.x - mouseworldpose.x;
+        if ((facingRight && moveDirection < -0.01) || (!facingRight && moveDirection > 0.01))
+        {
+            facingRight = !facingRight;
+            //transform.position = new Vector3(0, 0, 0);
+            transform.localScale = Vector3.Scale(transform.localScale, new Vector3(1, -1, 1));
+        }
+        float AngleRad = Mathf.Atan2(mouseworldpose.y - transform.position.y, mouseworldpose.x - transform.position.x);
+        float AngleDeg = (180 / Mathf.PI) * AngleRad;
+        transform.rotation = Quaternion.Euler(0, 0, AngleDeg);
         if (Input.GetButton("Weapon"))
         {
             wapon = new MachineGun();
