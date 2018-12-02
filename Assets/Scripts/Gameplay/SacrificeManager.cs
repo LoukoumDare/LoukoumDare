@@ -29,7 +29,6 @@ public class SacrificeManager : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
-		
 		//TODO get player
 	}
 
@@ -55,7 +54,7 @@ public class SacrificeManager : MonoBehaviour
 
 		foreach (int i in Enum.GetValues(typeof(e_sacrifice)))
 		{
-			if ((sacrifices & (e_sacrifice)i) != 0)
+			if ((sacrificesDone & (e_sacrifice)i) != 0)
 			{
 				sacrificePool.Add(i);
 			}
@@ -68,10 +67,6 @@ public class SacrificeManager : MonoBehaviour
 		Time.timeScale = 0;
 		e_sacrifice sacri1 = getRandomSacrifice();
 		e_sacrifice sacri2 = getRandomSacrifice();
-	
-		
-		
-		 
 
 	}
 
