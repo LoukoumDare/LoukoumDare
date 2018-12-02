@@ -16,9 +16,9 @@ public class blockerEnemy : MonoBehaviour {
 	public float BOOST_TIME_DURATION = 0.25f;
 	public float BUMP_SPEED = -1f;
 	public float distanceToMinion = 1f;
-	public float damage = 1;
+	public float damage = 10;
 	public float PUSH_DURATION_WHEN_HITED = 0.2f;
-	public float attackRange = 2.5f;
+	public float attackRange = 1f;
 	enemyHealth _enemyHealth;
 	PlayerHealth playerHealth;
 
@@ -92,9 +92,7 @@ public class blockerEnemy : MonoBehaviour {
 		}
 		if (collision.gameObject.tag == "Player")
 		{
-			// Destroy(gameObject);
-			playerHealth = collision.gameObject.GetComponentInParent<PlayerHealth>();
-			playerHealth.TakeDamage ((int)(this.damage));
-		}
+            GetComponent<enemyAttack>().checkAttack();
+        }
 	}
 }

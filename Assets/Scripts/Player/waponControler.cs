@@ -81,7 +81,7 @@ public class Gun : Awapon
     public Gun()
     {
         delay = 1f;
-        damage = 1000f;
+        damage = 10f;
         range = 5f;
         type = "LONG";
     }

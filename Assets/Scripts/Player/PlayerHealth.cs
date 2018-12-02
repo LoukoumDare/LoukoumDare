@@ -21,39 +21,32 @@ public class PlayerHealth : MonoBehaviour
 
     void Awake()
     {
-        // Setting up the references.
-        // anim = GetComponent<Animator>();
-        // playerAudio = GetComponent<AudioSource>();
-
-        // Set the initial health of the player.
         currentHealth = startingHealth;
     }
 
 
     void Update()
     {
+        damaged = false;
         if (currentHealth <= 0)
         {
             Destroy(gameObject);
         }
-        if (isDead)
-            return;
-
-        // If the player has just been damaged...
+        if (isDead) return;
         if (damaged)
         {
             // ... set the colour of the damageImage to the flash colour.
             damageImage.color = flashColour;
         }
         // Otherwise...
-        else
-        {
-            // ... transition the colour back to clear.
-            damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
-        }
+        //else
+        //{
+        //    // ... transition the colour back to clear.
+        //    damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
+        //}
 
         // Reset the damaged flag.
-        damaged = false;
+
     }
 
 
@@ -66,7 +59,7 @@ public class PlayerHealth : MonoBehaviour
         currentHealth -= amount;
 
         // Set the health bar's value to the current health.
-        healthSlider.value = currentHealth;
+        //healthSlider.value = currentHealth;
 
         // Play the hurt sound effect.
         // playerAudio.Play();

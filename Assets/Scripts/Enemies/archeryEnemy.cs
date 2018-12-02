@@ -94,10 +94,8 @@ public class archeryEnemy : MonoBehaviour {
 		}
 		if (collision.gameObject.tag == "Player")
 		{
-			// Destroy(gameObject);
-			playerHealth = collision.gameObject.GetComponentInParent<PlayerHealth>();
-			playerHealth.TakeDamage ((int)(this.damageOnPlayerHit));
-		}
+            GetComponent<enemyAttack>().checkAttack();
+        }
 	}
 
 }

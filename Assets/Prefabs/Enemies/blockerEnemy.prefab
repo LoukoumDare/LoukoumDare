@@ -165,7 +165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  damage: 10
+  damage: 5
   ATTACK_COOLDOWN: 5
   timeSinceLastAttack: 0
 --- !u!120 &120644977282301504
