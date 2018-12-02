@@ -19,6 +19,7 @@ public class archeryEnemy : MonoBehaviour {
 	private float distanceToMinion = 1f;
 	private bool needShot = false;
 	public float sideStepSpeed = 1f;
+	public float damage = 5;
 
 	void Start () {
 		this.distanceToMinion = MIN_DISTANCE_TO_MINION + Random.Range (-1f, 1f);

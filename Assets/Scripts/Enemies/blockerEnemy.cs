@@ -16,6 +16,7 @@ public class blockerEnemy : MonoBehaviour {
 	public float BOOST_TIME_DURATION = 0.25f;
 	public float BUMP_SPEED = -1f;
 	public float distanceToMinion = 1f;
+	public float damage = 1;
 
 	void Start () {
 		this.distanceToMinion = MIN_DISTANCE_TO_MINION + Random.Range (-1f, 1f);
