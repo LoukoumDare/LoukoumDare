@@ -79,8 +79,16 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+	public void diminishHealth(float ratio)
+	{
 
-    void Death()
+		int damage = (int)(ratio * currentHealth) - 1;
+		TakeDamage(damage);
+
+	}
+
+
+	void Death()
     {
         // Set the death flag so this function won't be called again.
         isDead = true;

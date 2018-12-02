@@ -43,10 +43,6 @@ public class waponControler : MonoBehaviour {
 						)
 					)
 				{
-
-					Vector3 mouseworldpose = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                    float AngleRad = Mathf.Atan2(mouseworldpose.y - transform.position.y, mouseworldpose.x - transform.position.x);
-                    float AngleDeg = (180 / Mathf.PI) * AngleRad;
                     GameObject instance = Object.Instantiate(Resources.Load("bullet", typeof(GameObject)), new Vector3(transform.position.x, transform.position.y, -2), Quaternion.Euler(0, 0, AngleDeg)) as GameObject;
                     instance.GetComponent<bulletControler>().damage = wapon.damage;
                     Destroy(instance, wapon.range);

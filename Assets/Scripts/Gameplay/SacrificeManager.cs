@@ -13,6 +13,7 @@ public class SacrificeManager : MonoBehaviour
 	/// Useful object
 	public Transform halfVisionHidingObj;
 	public Transform hudToHide;
+	public PlayerHealth phealth;
 
 	[Flags]
 	public enum e_sacrifice
@@ -20,7 +21,7 @@ public class SacrificeManager : MonoBehaviour
 		HIDE_HUD = 1,
 		REDUCE_VISION= 2,
 		HALF_VISION = 4,
-		SLIPPERY = 8,
+		TODO = 8,
 		MOVE_OR_SHOOT = 16,
 		NO_AUTOSHOOT= 32,
 		HALF_LIFE = 64
@@ -44,8 +45,6 @@ public class SacrificeManager : MonoBehaviour
 				Sacrifice((e_sacrifice) (1<<i));
 			}
 		}
-
-
 	}
 
 	public e_sacrifice getRandomSacrifice()
@@ -100,7 +99,7 @@ public class SacrificeManager : MonoBehaviour
 					sacrificesDone |= e_sacrifice.HALF_VISION;
 					break;
 				}
-			case e_sacrifice.SLIPPERY:
+			case e_sacrifice.TODO:
 				break;
 			case e_sacrifice.MOVE_OR_SHOOT:
 				EventManager.TriggerEvent("MOVE_OR_SHOOT");
@@ -113,7 +112,7 @@ public class SacrificeManager : MonoBehaviour
 				Debug.Log("NO_AUTOSHOOT");
 				break;
 			case e_sacrifice.HALF_LIFE:
-				EventManager.TriggerEvent("HALF_LIFE");
+				phealth.diminishHealth(0.35f);
 				Debug.Log("HALF_LIFE");
 				break;
 			default:
