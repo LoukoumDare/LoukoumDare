@@ -3,58 +3,112 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class waponControler : MonoBehaviour {
-
+    public float timeSinceLastShoot = 0;
     Awapon wapon;
-    void Start () 
+	private bool moveOrShoot = false;
+	private bool autoShootAllowed = true;
+
+	void Start () 
     {
-        wapon = new Gun(this);
+        wapon = new Gun();
+		EventManager.StartListening("MOVE_OR_SHOOT", () => { moveOrShoot = true; });
+		EventManager.StartListening("NO_AUTOSHOOT", () => { autoShootAllowed = false; });
 
 	}
 	void Update () {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButton("Weapon"))
         {
-            wapon.Fire();
+            wapon = new MachineGun();
+        }
+        if (wapon.type=="LONG")
+        {
+            timeSinceLastShoot += Time.deltaTime;
+            if (timeSinceLastShoot > wapon.delay)
+            {
+                if (	(autoShootAllowed && Input.GetButton("Fire1"))   
+					||	(Input.GetButtonDown("Fire1"))
+					&& isAllowedToShoot() )
+				{
+                    Vector3 mouseworldpose = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    float AngleRad = Mathf.Atan2(mouseworldpose.y - transform.position.y, mouseworldpose.x - transform.position.x);
+                    float AngleDeg = (180 / Mathf.PI) * AngleRad;
+                    GameObject instance = Object.Instantiate(Resources.Load("bullet", typeof(GameObject)), new Vector3(transform.position.x, transform.position.y, 0), Quaternion.Euler(0, 0, AngleDeg)) as GameObject;
+                    instance.GetComponent<bulletControler>().damage = wapon.damage;
+                    Destroy(instance, wapon.range);
+                    timeSinceLastShoot = 0;
+                }
+            }
         }
     }
+
+	public bool isAllowedToShoot()
+	{
+		if (moveOrShoot)
+		{
+			return (Mathf.Abs(Input.GetAxis("Horizontal")) > 0 || Mathf.Abs(Input.GetAxis("Vertical")) > 0);
+		}
+		return true;
+	}
+	
 }
 public abstract class Awapon
 {
-   protected waponControler _controller;
 
-    public Awapon(waponControler _controller)
-    {
-        this._controller = _controller;
-    }
+    protected waponControler _controller;
+    public float delay = 0;
+    public float damage = 0;
+    public float range = 0;
+    public string type = "LONG";
 
-    public virtual void Fire()
-    {
-
-    }
 }
 public class Sword : Awapon
 {
-    public Sword(waponControler _controller)
-    : base(_controller)
+    public Sword()
     {
-    }
-    public override void Fire ()
-    {
-
+        type = "SHORT";
     }
 }
 public class Gun : Awapon
 {
-    public Gun(waponControler _controller)
-    : base(_controller)
+    public Gun()
     {
+        delay = 1;
+        damage = 10;
+        range = 1;
+        type = "LONG";
     }
 
-    public override void Fire()
+}
+public class MachineGun : Awapon
+{
+    public MachineGun()
     {
-        Vector3 mouseworldpose = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        float AngleRad = Mathf.Atan2(mouseworldpose.y - _controller.transform.position.y, mouseworldpose.x - _controller.transform.position.x);
-        float AngleDeg = (180 / Mathf.PI) * AngleRad;
-        //this.transform.rotation = Quaternion.Euler(0, 0, AngleDeg);
-        GameObject instance = Object.Instantiate(Resources.Load("bullet", typeof(GameObject)), new Vector3(_controller.transform.position.x, _controller.transform.position.y, 0), Quaternion.Euler(0, 0, AngleDeg)) as GameObject;
+        delay = 0.2f;
+        damage = 5;
+        range = 2;
+        type = "LONG";
     }
+
+}
+public class IceGun : Awapon
+{
+    public IceGun()
+    {
+        delay = 0.2f;
+        damage = 5;
+        range = 3;
+        type = "LONG";
+    }
+
+}
+public class ShotGun : Awapon
+{
+    public ShotGun()
+    {
+        delay = 3f;
+        damage = 50;
+        range = 1;
+        type = "LONG";
+    }
+
 }

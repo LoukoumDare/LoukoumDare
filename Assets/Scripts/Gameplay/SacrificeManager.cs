@@ -18,6 +18,8 @@ public class SacrificeManager : MonoBehaviour
 		REDUCE_VISION,
 		HALF_VISION,
 		SLIPPERY,
+		MOVE_OR_SHOOT,
+		NO_AUTOSHOOT,
 
 		COUNT
 	}
@@ -64,7 +66,6 @@ public class SacrificeManager : MonoBehaviour
 				}
 			case e_sacrifice.HALF_VISION:
 				{
-
 					GameObject player = GameObject.FindGameObjectWithTag("Player");
 					var halfVisionObject = Instantiate(halfVisionHidingObj, player.transform.position, player.transform.rotation);
 					halfVisionObject.transform.parent = player.transform;
@@ -73,7 +74,14 @@ public class SacrificeManager : MonoBehaviour
 				}
 			case e_sacrifice.SLIPPERY:
 				break;
-			case e_sacrifice.COUNT:
+			case e_sacrifice.MOVE_OR_SHOOT:
+
+				Debug.Log("MOVE_OR_SHOOT");
+				EventManager.TriggerEvent("MOVE_OR_SHOOT");
+				break;
+			case e_sacrifice.NO_AUTOSHOOT:
+				EventManager.TriggerEvent("NO_AUTOSHOOT");
+				Debug.Log("NO_AUTOSHOOT");
 				break;
 			default:
 				break;

@@ -17,7 +17,7 @@ public class TestHUD : MonoBehaviour
     void Update()
     {
         lastHit += Time.deltaTime;
-        if(lastHit > 2f && Input.GetKey(KeyCode.Space))
+        if(lastHit > 1f && Input.GetKey(KeyCode.Space))
         {
             playerHealth.TakeDamage(12);
             lastHit = 0;

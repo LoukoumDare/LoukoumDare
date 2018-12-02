@@ -8,7 +8,7 @@ public class bulletControler : MonoBehaviour {
 
     void Update()
     {
-        moveDirection = new Vector3(1,0,0) * Time.deltaTime*5;
+        moveDirection = new Vector3(1,0,transform.position.z) * Time.deltaTime*5;
         transform.Translate(moveDirection);
     }
     void OnCollisionEnter2D(Collision2D collision)

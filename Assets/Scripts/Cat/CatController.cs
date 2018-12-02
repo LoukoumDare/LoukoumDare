@@ -2,20 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CatController : MonoBehaviour {
+public class CatController : MonoBehaviour
+{
     public bool follow = false;
     public float speed = 1;
+    public float timeSinceLastCollision = 1;
     public int health;
     void Start()
     {
         this.health = 3;
     }
     void Update()
-    { 
+    {
         if (this.follow == true)
         {
+            timeSinceLastCollision += Time.deltaTime;
             GameObject Player = GameObject.Find("player");
-            Vector3 moveDirection = new Vector3(Player.transform.position.x-transform.position.x, Player.transform.position.y-transform.position.y, transform.position.z);
+            Vector3 moveDirection = new Vector3(Player.transform.position.x - transform.position.x, Player.transform.position.y - transform.position.y, transform.position.z);
             moveDirection = moveDirection * speed * Time.deltaTime;
             transform.Translate(moveDirection);
         }
@@ -23,12 +26,18 @@ public class CatController : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D collision)
     {
         this.follow |= collision.gameObject.tag == "Player";
+
+
         if (collision.gameObject.tag == "Enemy")
         {
-            this.health = this.health - 1;
-            if (this.health == 0)
+            if (timeSinceLastCollision > 1)
             {
-                Destroy(gameObject);
+                this.health = this.health - 1;
+                timeSinceLastCollision = 0;
+                if (this.health == 0)
+                {
+                    Destroy(gameObject);
+                }
             }
 
         }

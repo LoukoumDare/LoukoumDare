@@ -28,6 +28,7 @@ public class sharpy : MonoBehaviour {
 
 	enemyHealth _enemyHealth;
 	PlayerHealth playerHealth;
+        bool facingRight = false;
 
 	void Start () {
 		// aimedPosition = new Vector3(Random.Range (1, 10), Random.Range (0, 10));
@@ -69,8 +70,9 @@ public class sharpy : MonoBehaviour {
 		float AngleRad = Mathf.Atan2(aimedPosition.x - transform.position.x, aimedPosition.y - transform.position.y);
 		float AngleDeg = (180 / Mathf.PI) * AngleRad * -1;
 		this.transform.rotation = Quaternion.Euler(0, 0, AngleDeg); 
+		Vector3 rotatedPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 
-		Vector3 diffPosition = aimedPosition - transform.position;
+		Vector3 diffPosition = aimedPosition - rotatedPosition;
 		Vector3 vectorMotion = diffPosition.normalized * speed * Time.deltaTime;
 		this.checkState ();
 		this.checkIncrementJerk();

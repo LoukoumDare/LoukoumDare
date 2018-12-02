@@ -81,7 +81,7 @@ public class blockerEnemy : MonoBehaviour {
 			_enemyHealth.TakeDamage ((int)(collision.gameObject.GetComponent<bulletControler> ().damage), new Vector3(0, 0, 0));
 			Destroy(collision.gameObject, PUSH_DURATION_WHEN_HITED);
 		}
-		if (collision.gameObject.tag == "Body")
+		if (collision.gameObject.tag == "Player")
 		{
 			// Destroy(gameObject);
 			playerHealth = collision.gameObject.GetComponentInParent<PlayerHealth>();
