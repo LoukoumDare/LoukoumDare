@@ -9,7 +9,7 @@ public class poper : MonoBehaviour {
 	public Transform blockerEnemy;
 	public Transform archeryEnemy;
 
-	public float popDelay = 5;
+	public float popDelay = 15;
 	private float timeSinceLastPop = 0;
 
 	public int archeryInstanceNumber = 0;
@@ -27,9 +27,9 @@ public class poper : MonoBehaviour {
 		if (this.timeSinceLastPop > popDelay) {
 			this.timeSinceLastPop = 0;
 			Instantiate(sharpy, new Vector3(Random.Range(-6f, 6f), Random.Range(-6f, 6f), 0), Quaternion.identity);
-			//Instantiate(ennemy, new Vector3(Random.Range(-6f, 6f), Random.Range(-6f, 6f), 0), Quaternion.identity);
-			//Instantiate(blockerEnemy, new Vector3(Random.Range(-6f, 6f), Random.Range(-6f, 6f), 0), Quaternion.identity);
-			//Instantiate(archeryEnemy, new Vector3(Random.Range(-6f, 6f), Random.Range(-6f, 6f), 0), Quaternion.identity);
+			Instantiate(ennemy, new Vector3(Random.Range(-6f, 6f), Random.Range(-6f, 6f), 0), Quaternion.identity);
+			Instantiate(blockerEnemy, new Vector3(Random.Range(-6f, 6f), Random.Range(-6f, 6f), 0), Quaternion.identity);
+			Instantiate(archeryEnemy, new Vector3(Random.Range(-6f, 6f), Random.Range(-6f, 6f), 0), Quaternion.identity);
 		}
 	}
 }
