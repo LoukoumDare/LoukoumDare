@@ -8,7 +8,7 @@ public class SceneLoader: MonoBehaviour {
 	public void LoadScene()
 	{ 
 		// Application.LoadLevel(level);
-		SceneManager.LoadScene("LevelFinal", LoadSceneMode.Single);
+		SceneManager.LoadScene("Level1", LoadSceneMode.Single);
 	}
 	public void Exit () {
 		Application.Quit();
